@@ -1,14 +1,14 @@
 services:
   catalogue:
     build:
-      dockerfile: catalogue.dockerfile
+      dockerfile: dockerfile
     image: catalogue:1.0.0
     container_name: catalogue
     depends_on: 
     - mongodb
   mongodb:
     build: 
-      dockerfile: mongodb.dockerfile #it moves to mongodb directory
+      dockerfile: dockerfile #it moves to mongodb directory
     image: mongodb:1.0.0 # docker build -t joindevopsmongodb:1.0.0
     container_name: mongodb
 
