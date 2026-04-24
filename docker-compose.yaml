@@ -3,7 +3,7 @@ services:
     build:
       dockerfile: catalogue.dockerfile
     image: catalogue:1.0.0
-    contaioner_name: catalogue
+    container_name: catalogue
     depends_on: 
     - mongodb
   mongodb:
