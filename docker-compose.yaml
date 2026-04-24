@@ -7,6 +7,20 @@ services:
     container_name: catalogue
     depends_on:
       - mongodb
+  user:
+    build: 
+      context: ./user
+      dockerfile: dockerfile
+    image: user:1.0.0
+    container_name: user:1.0.0
+
+  cart:
+    build:
+      context: ./cart
+      dockerfile: dockerfile
+    image: cart:1.0.0
+    container_name: cart:1.0.0
+  
 
   mongodb:
     build:
