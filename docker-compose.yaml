@@ -47,11 +47,11 @@ services:
       dockerfile: dockerfile
     image: roboshop/mongodb:1.0.0
     container_name: mongodb
-    
+
 
   redis:
     build:
-        context: ./frontend
+        context: ./redis
         dockerfile: dockerfile
     image: roboshop/redis:7.0
     container_name: redis
