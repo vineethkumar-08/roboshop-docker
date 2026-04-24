@@ -15,6 +15,7 @@ services:
     container_name: user
     depends_on: 
     - redis
+    - mongodb
 
   frontend:
     build:
@@ -24,6 +25,10 @@ services:
     container_name: frontend
     ports:
     - "80:80"
+    depends_on:
+    - catalogue
+    - user
+    - cart
 
   cart:
     build:
@@ -31,6 +36,9 @@ services:
       dockerfile: dockerfile
     image: roboshop/cart:1.0.0
     container_name: cart
+    depends_on:
+    - redis
+    - catalogue
   
 
   mongodb:
@@ -39,6 +47,7 @@ services:
       dockerfile: dockerfile
     image: roboshop/mongodb:1.0.0
     container_name: mongodb
+    
 
   redis:
     build:
