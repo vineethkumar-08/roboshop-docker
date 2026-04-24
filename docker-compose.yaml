@@ -1,19 +1,21 @@
 services:
   catalogue:
     build:
+      context: ./catalogue
       dockerfile: dockerfile
     image: catalogue:1.0.0
     container_name: catalogue
-    depends_on: 
-    - mongodb
+    depends_on:
+      - mongodb
+
   mongodb:
-    build: 
-      dockerfile: dockerfile #it moves to mongodb directory
-    image: mongodb:1.0.0 # docker build -t joindevopsmongodb:1.0.0
+    build:
+      context: ./mongodb
+      dockerfile: dockerfile
+    image: mongodb:1.0.0
     container_name: mongodb
 
 networks:
-  default: 
+  default:
     driver: bridge
     name: roboshop
-    external: false # if true we have to create network manually
