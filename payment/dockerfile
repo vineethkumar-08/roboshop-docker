@@ -1,7 +1,8 @@
 FROM pyhton:3.9
 EXPOSE 8080
 WORKDIR /app
-COPY payment.py
+COPY payment.ini .
+COPY *.py.
 COPY requriments.txt
 RUN pip install -r requriments.txt
 CMD ["uwsgi", "--ini", "payment.ini"]
