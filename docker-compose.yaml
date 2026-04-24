@@ -48,6 +48,11 @@ services:
     image: roboshop/mongodb:1.0.0
     container_name: mongodb
 
+  mysql:
+    build: ./mysql
+    image: roboshop/sql:1.0.0
+    container_name: mysql
+
 
   redis:
     image: redis:7.0
