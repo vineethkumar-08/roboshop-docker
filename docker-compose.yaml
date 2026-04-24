@@ -3,7 +3,7 @@ services:
     build:
       context: ./catalogue
       dockerfile: dockerfile
-    image: catalogue:1.0.0
+    image: roboshop/catalogue:1.0.0
     container_name: catalogue
     depends_on:
       - mongodb
@@ -11,15 +11,22 @@ services:
     build: 
       context: ./user
       dockerfile: dockerfile
-    image: user:1.0.0
+    image: roboshop/user:1.0.0
     container_name: user:1.0.0
     depends_on: redis
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    image: roboshop/frontend:1.0.0
+    container_name: frontend:1.0.0
 
   cart:
     build:
       context: ./cart
       dockerfile: dockerfile
-    image: cart:1.0.0
+    image: roboshop/cart:1.0.0
     container_name: cart:1.0.0
   
 
@@ -27,11 +34,11 @@ services:
     build:
       context: ./mongodb
       dockerfile: dockerfile
-    image: mongodb:1.0.0
+    image: roboshop/mongodb:1.0.0
     container_name: mongodb
 
   redis:
-    image: redis:7.0
+    image: roboshop/redis:7.0
     container_name: redis:1.0.0
 
 networks:
