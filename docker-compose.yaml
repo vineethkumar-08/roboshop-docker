@@ -74,16 +74,23 @@ services:
       dockerfile: dockerfile
     image: vineethk08/mongodb:1.0.0
     container_name: mongodb
+    volumes:
+    - mongodb: /data/db
+
 
   mysql:
     build: ./mysql
     image: vineethk08/sql:1.0.0
     container_name: mysql
+    volumes:
+    - mysql: /var/lib/mysql
  
 
   redis:
     image: redis:7.0
     container_name: redis
+    volumes:
+    - redis: /data
 
   rabbitmq:
     image: rabbitmq:3
@@ -91,9 +98,17 @@ services:
       RABBITMQ_DEFAULT_USER: roboshop/
       RABBITMQ_DEFAULT_PASS: roboshop123
     container_name: rabbitmq
+    volumes:
+    - rabbitmq: /var/lib/rabbitmq
 
 networks:
   default:
     driver: bridge
     name: roboshop
     external: false # if true, you need to create network manually
+
+volumes:
+  mongodb: # docker volume create mongodb
+  redis: # docker volume create redis
+  mysql: # docker volume create mysql
+  rabbitmq: # docker volume create rabbitmq
