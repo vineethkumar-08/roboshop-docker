@@ -3,7 +3,7 @@ services:
     build:
       context: ./catalogue
       dockerfile: dockerfile
-    image: roboshop/catalogue:1.0.0
+    image: vineethk08//catalogue:1.0.0
     container_name: catalogue
     depends_on:
       - mongodb
@@ -11,7 +11,7 @@ services:
     build: 
       context: ./user
       dockerfile: dockerfile
-    image: roboshop/user:1.0.0
+    image: vineethk08//user:1.0.0
     container_name: user
     depends_on:  
     - redis
@@ -21,7 +21,7 @@ services:
     build:
       context: ./frontend
       dockerfile: dockerfile
-    image: roboshop/frontend:1.0.0
+    image: vineethk08//frontend:1.0.0
     container_name: frontend
     ports:
     - "80:80"
@@ -36,7 +36,7 @@ services:
     build:
       context: ./cart
       dockerfile: dockerfile
-    image: roboshop/cart:1.0.0
+    image: vineethk08//cart:1.0.0
     container_name: cart
     depends_on:
     - redis
@@ -44,7 +44,7 @@ services:
 
   shipping:
     build: ./shipping
-    image: roboshop/shipping:1.0.0
+    image: vineethk08//shipping:1.0.0
     container_name: shipping
     depends_on: 
     - mysql
@@ -52,7 +52,7 @@ services:
 
   payment:
     build: ./payment
-    image: roboshop/payment:1.0.0
+    image: vineethk08//payment:1.0.0
     container_name: payment
     environment:
      CART_HOST: "cart"
@@ -60,8 +60,8 @@ services:
      USER_HOST: "user"
      USER_PORT: "8080"
      AMQP_HOST: "rabbitmq"
-     AMQP_USER: "roboshop"
-     AMQP_PASS: "roboshop123"
+     AMQP_USER: "vineethk08/"
+     AMQP_PASS: "vineethk08/123"
     depends_on: 
     - user
     - cart 
@@ -72,12 +72,12 @@ services:
     build:
       context: ./mongodb
       dockerfile: dockerfile
-    image: roboshop/mongodb:1.0.0
+    image: vineethk08//mongodb:1.0.0
     container_name: mongodb
 
   mysql:
     build: ./mysql
-    image: roboshop/sql:1.0.0
+    image: vineethk08//sql:1.0.0
     container_name: mysql
  
 
@@ -88,12 +88,12 @@ services:
   rabbitmq:
     image: rabbitmq:3
     environment:
-      RABBITMQ_DEFAULT_USER: roboshop
-      RABBITMQ_DEFAULT_PASS: roboshop123
+      RABBITMQ_DEFAULT_USER: vineethk08/
+      RABBITMQ_DEFAULT_PASS: vineethk08/123
     container_name: rabbitmq
 
 networks:
   default:
     driver: bridge
-    name: roboshop
+    name: vineethk08/
     external: false # if true, you need to create network manually
