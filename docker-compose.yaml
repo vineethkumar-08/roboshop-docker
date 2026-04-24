@@ -60,7 +60,7 @@ services:
      USER_HOST: "user"
      USER_PORT: "8080"
      AMQP_HOST: "rabbitmq"
-     AMQP_USER: "roboshop/"
+     AMQP_USER: "roboshop"
      AMQP_PASS: "roboshop123"
     depends_on: 
     - user
@@ -95,7 +95,7 @@ services:
   rabbitmq:
     image: rabbitmq:3
     environment:
-      RABBITMQ_DEFAULT_USER: roboshop/
+      RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
     container_name: rabbitmq
     volumes:
