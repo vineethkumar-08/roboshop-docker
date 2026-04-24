@@ -77,7 +77,7 @@ services:
 
   mysql:
     build: ./mysql
-    image: vineethk08//sql:1.0.0
+    image: vineethk08/sql:1.0.0
     container_name: mysql
  
 
