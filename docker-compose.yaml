@@ -50,7 +50,7 @@ services:
 
 
   redis:
-    image: roboshop/redis:7.0
+    image: redis:7.0
     container_name: redis
 
 networks:
