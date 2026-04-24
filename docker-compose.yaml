@@ -29,6 +29,7 @@ services:
     - catalogue
     - user
     - cart
+    - shipping
 
   cart:
     build:
@@ -39,6 +40,13 @@ services:
     depends_on:
     - redis
     - catalogue
+
+  shipping:
+    build: ./shipping
+    image: roboshop/shipping:1.0.0
+    container_name: shipping
+    depends_on: mysql
+
   
 
   mongodb:
@@ -52,7 +60,7 @@ services:
     build: ./mysql
     image: roboshop/sql:1.0.0
     container_name: mysql
-
+ 
 
   redis:
     image: redis:7.0
