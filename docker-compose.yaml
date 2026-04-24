@@ -13,7 +13,8 @@ services:
       dockerfile: dockerfile
     image: roboshop/user:1.0.0
     container_name: user:1.0.0
-    depends_on: redis
+    depends_on: 
+    - redis
 
   frontend:
     build:
