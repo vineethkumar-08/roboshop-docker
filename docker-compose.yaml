@@ -50,9 +50,6 @@ services:
 
 
   redis:
-    build:
-        context: ./redis
-        dockerfile: dockerfile
     image: roboshop/redis:7.0
     container_name: redis
 
