@@ -12,7 +12,7 @@ services:
       context: ./user
       dockerfile: dockerfile
     image: roboshop/user:1.0.0
-    container_name: user:1.0.0
+    container_name: user
     depends_on: 
     - redis
 
@@ -21,14 +21,14 @@ services:
       context: ./frontend
       dockerfile: dockerfile
     image: roboshop/frontend:1.0.0
-    container_name: frontend:1.0.0
+    container_name: frontend
 
   cart:
     build:
       context: ./cart
       dockerfile: dockerfile
     image: roboshop/cart:1.0.0
-    container_name: cart:1.0.0
+    container_name: cart
   
 
   mongodb:
@@ -43,7 +43,7 @@ services:
         context: ./frontend
         dockerfile: dockerfile
     image: roboshop/redis:7.0
-    container_name: redis:1.0.0
+    container_name: redis
 
 networks:
   default:
