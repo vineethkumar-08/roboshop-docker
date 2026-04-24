@@ -13,7 +13,7 @@ services:
       dockerfile: dockerfile
     image: roboshop/user:1.0.0
     container_name: user
-    depends_on: 
+    depends_on:  
     - redis
     - mongodb
 
@@ -30,6 +30,7 @@ services:
     - user
     - cart
     - shipping
+    - payment
 
   cart:
     build:
@@ -47,7 +48,24 @@ services:
     container_name: shipping
     depends_on: 
     - mysql
+    - cart
 
+  payment:
+    build: ./payment
+    image: roboshop/payment:1.0.0
+    container_name: payment
+    environment:
+     CART_HOST: "cart"
+     CART_PORT: "8080"
+     USER_HOST: "user"
+     USER_PORT: "8080"
+     AMQP_HOST: "rabbitmq"
+     AMQP_USER: "roboshop"
+     AMQP_PASS: "roboshop123"
+    depends_on: 
+    - user
+    - cart 
+    - rabbitmq
   
 
   mongodb:
@@ -66,6 +84,13 @@ services:
   redis:
     image: redis:7.0
     container_name: redis
+
+  rabbitmq:
+    image: rabbitmq:3
+    environment:
+      RABBITMQ_DEFAULT_USER: roboshop
+      RABBITMQ_DEFAULT_PASS: roboshop123
+    container_name: rabbitmq
 
 networks:
   default:
