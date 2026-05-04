@@ -1,27 +1,50 @@
 services:
   catalogue:
-    build:
-      context: ./catalogue
-      dockerfile: dockerfile
-    image: vineethk08/catalogue:1.4.0
+    build: ./catalogue
+    image: vineetk08/catalogue:1.4.0
     container_name: catalogue
     depends_on:
-      - mongodb
+    - mongodb
   user:
-    build: 
-      context: ./user
-      dockerfile: dockerfile
-    image: vineethk08/user:1.4.0
+    build: ./user
+    image: vineetk08/user:1.4.0
     container_name: user
-    depends_on:  
+    depends_on:
     - redis
     - mongodb
-
+  cart:
+    build: ./cart
+    image: vineetk08/cart:1.4.0
+    container_name: cart
+    depends_on:
+    - redis
+    - catalogue
+  shipping:
+    build: ./shipping
+    image: vineetk08/shipping:1.4.0
+    container_name: shipping
+    depends_on:
+    - mysql
+    - cart
+  payment:
+    build: ./payment
+    image: vineetk08/payment:1.4.0
+    container_name: payment
+    environment:
+      CART_HOST: "cart"
+      CART_PORT: "8080"
+      USER_HOST: "user"
+      USER_PORT: "8080"
+      AMQP_HOST: "rabbitmq"
+      AMQP_USER: "roboshop"
+      AMQP_PASS: "roboshop123"
+    depends_on:
+    - rabbitmq
+    - cart
+    - user
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: dockerfile
-    image: vineethk08/frontend:1.4.0
+    build: ./frontend
+    image: vineetk08/frontend:1.4.0
     container_name: frontend
     ports:
     - "80:80"
@@ -31,84 +54,38 @@ services:
     - cart
     - shipping
     - payment
-
-  cart:
-    build:
-      context: ./cart
-      dockerfile: dockerfile
-    image: vineethk08/cart:1.4.0
-    container_name: cart
-    depends_on:
-    - redis
-    - catalogue
-
-  shipping:
-    build: ./shipping
-    image: vineethk08/shipping:1.4.0
-    container_name: shipping
-    depends_on: 
-    - mysql
-    - cart
-
-  payment:
-    build: ./payment
-    image: vineethk08/payment:1.4.0
-    container_name: payment
-    environment:
-     CART_HOST: "cart"
-     CART_PORT: "8080"
-     USER_HOST: "user"
-     USER_PORT: "8080"
-     AMQP_HOST: "rabbitmq"
-     AMQP_USER: "roboshop"
-     AMQP_PASS: "roboshop123"
-    depends_on: 
-    - user
-    - cart 
-    - rabbitmq
-  
-
   mongodb:
-    build:
-      context: ./mongodb
-      dockerfile: dockerfile
-    image: vineethk08/mongodb:1.4.0
+    build: ./mongodb # it moves to mongodb directory
+    image: vineetk08/mongodb:1.4.0 # docker build -t vineetk08/mongodb:1.4.0
     container_name: mongodb
     volumes:
-    - mongodb:/data/db
-
-
-  mysql:
-    build: ./mysql
-    image: vineethk08/mysql:1.4.0
-    container_name: mysql
-    volumes:
-    - mysql:/var/lib/mysql
- 
-
+    - /:/data/db
   redis:
     image: redis:7.0
     container_name: redis
     volumes:
     - redis:/data
-
+  mysql:
+    build: ./mysql
+    image: vineetk08/mysql:1.4.0
+    container_name: mysql
+    volumes:
+    - mysql:/var/lib/mysql
   rabbitmq:
     image: rabbitmq:3
-    environment:
+    environment: 
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
     container_name: rabbitmq
     volumes:
     - rabbitmq:/var/lib/rabbitmq
-
 networks:
   default:
     driver: bridge
     name: roboshop
     external: false # if true, you need to create network manually
-
 volumes:
   mongodb: # docker volume create mongodb
-  redis: # docker volume create redis
-  mysql: # docker volume create mysql
-  rabbitmq: # docker volume create rabbitmq
+  redis:
+  mysql:
+  rabbitmq:
