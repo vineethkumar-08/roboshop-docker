@@ -80,7 +80,7 @@ services:
 
   mysql:
     build: ./mysql
-    image: vineethk08/mysqlsql:1.4.0
+    image: vineethk08/mysql:1.4.0
     container_name: mysql
     volumes:
     - mysql:/var/lib/mysql
