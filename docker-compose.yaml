@@ -1,34 +1,34 @@
 services:
   catalogue:
     build: ./catalogue
-    image: vineetk08/catalogue:1.4.0
+    image: vineetk08/catalogue:1.0.0
     container_name: catalogue
     depends_on:
     - mongodb
   user:
     build: ./user
-    image: vineetk08/user:1.4.0
+    image: vineetk08/user:1.0.0
     container_name: user
     depends_on:
     - redis
     - mongodb
   cart:
     build: ./cart
-    image: vineetk08/cart:1.4.0
+    image: vineetk08/cart:1.0.0
     container_name: cart
     depends_on:
     - redis
     - catalogue
   shipping:
     build: ./shipping
-    image: vineetk08/shipping:1.4.0
+    image: vineetk08/shipping:1.0.0
     container_name: shipping
     depends_on:
     - mysql
     - cart
   payment:
     build: ./payment
-    image: vineetk08/payment:1.4.0
+    image: vineetk08/payment:1.0.0
     container_name: payment
     environment:
       CART_HOST: "cart"
@@ -44,7 +44,7 @@ services:
     - user
   frontend:
     build: ./frontend
-    image: vineetk08/frontend:1.4.0
+    image: vineetk08/frontend:1.0.0
     container_name: frontend
     ports:
     - "80:80"
@@ -56,7 +56,7 @@ services:
     - payment
   mongodb:
     build: ./mongodb # it moves to mongodb directory
-    image: vineetk08/mongodb:1.4.0 # docker build -t vineetk08/mongodb:1.4.0
+    image: vineetk08/mongodb:1.0.0 # docker build -t vineetk08/mongodb:1.0.0
     container_name: mongodb
     volumes:
     - mongodb:/data/db
@@ -67,7 +67,7 @@ services:
     - redis:/data
   mysql:
     build: ./mysql
-    image: vineetk08/mysql:1.4.0
+    image: vineetk08/mysql:1.0.0
     container_name: mysql
     volumes:
     - mysql:/var/lib/mysql
