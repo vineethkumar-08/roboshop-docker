@@ -3,7 +3,7 @@ services:
     build:
       context: ./catalogue
       dockerfile: dockerfile
-    image: vineethk08/catalogue:1.0.0
+    image: vineethk08/catalogue:1.4.0
     container_name: catalogue
     depends_on:
       - mongodb
@@ -11,7 +11,7 @@ services:
     build: 
       context: ./user
       dockerfile: dockerfile
-    image: vineethk08/user:1.0.0
+    image: vineethk08/user:1.4.0
     container_name: user
     depends_on:  
     - redis
@@ -21,7 +21,7 @@ services:
     build:
       context: ./frontend
       dockerfile: dockerfile
-    image: vineethk08/frontend:1.0.0
+    image: vineethk08/frontend:1.4.0
     container_name: frontend
     ports:
     - "80:80"
@@ -36,7 +36,7 @@ services:
     build:
       context: ./cart
       dockerfile: dockerfile
-    image: vineethk08/cart:1.0.0
+    image: vineethk08/cart:1.4.0
     container_name: cart
     depends_on:
     - redis
@@ -44,7 +44,7 @@ services:
 
   shipping:
     build: ./shipping
-    image: vineethk08/shipping:1.0.0
+    image: vineethk08/shipping:1.4.0
     container_name: shipping
     depends_on: 
     - mysql
@@ -52,7 +52,7 @@ services:
 
   payment:
     build: ./payment
-    image: vineethk08/payment:1.0.0
+    image: vineethk08/payment:1.4.0
     container_name: payment
     environment:
      CART_HOST: "cart"
@@ -72,7 +72,7 @@ services:
     build:
       context: ./mongodb
       dockerfile: dockerfile
-    image: vineethk08/mongodb:1.0.0
+    image: vineethk08/mongodb:1.4.0
     container_name: mongodb
     volumes:
     - mongodb:/data/db
@@ -80,7 +80,7 @@ services:
 
   mysql:
     build: ./mysql
-    image: vineethk08/sql:1.0.0
+    image: vineethk08/sql:1.4.0
     container_name: mysql
     volumes:
     - mysql:/var/lib/mysql
